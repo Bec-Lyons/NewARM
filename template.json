@@ -76,7 +76,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices",
-            "apiVersion": "2020-07-01",
+            "apiVersion": "2018-07-01",
             "name": "[concat(parameters('sa_n'), '/default')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
