@@ -25,14 +25,6 @@
         "sa_n": {
             "defaultValue": "storageaccountarmlaa38d",
             "type": "string"
-        },
-        "smartdetectoralertrules_failure_anomalies___armlademo_name": {
-            "defaultValue": "failure anomalies - armlademo",
-            "type": "string"
-        },
-        "actiongroups_application_insights_smart_detection_externalid": {
-            "defaultValue": "/subscriptions/80b60a27-4eab-437e-899f-dde369cd1c17/resourceGroups/apimanagement/providers/microsoft.insights/actiongroups/application insights smart detection",
-            "type": "string"
         }
     },
     "variables": {},

@@ -14,20 +14,11 @@
         "connections_office365_name": {
             "value": "blOffice"
         },
-        "components_armLAdemo_name": {
-            "value": "blcomponents"
-        },
         "serverfarms_ASP_ARMLaDemo_bce2_name": {
             "value": "BlASP"
         },
-        "storageAccounts_storageaccountarmlaa38d_name": {
+        "sa_n": {
             "value": "blstorageaccount"
-        },
-        "smartdetectoralertrules_failure_anomalies___armlademo_name": {
-            "value": "blsmartdetect"
-        },
-        "actiongroups_application_insights_smart_detection_externalid": {
-            "value": "blactiongroup"
         }
     }
 }
