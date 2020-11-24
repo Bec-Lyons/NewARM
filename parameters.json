@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "connections_sql_name": {
+            "value": null
+        },
+        "sites_armLAdemo_name": {
+            "value": null
+        },
+        "connections_sql_2_name": {
+            "value": null
+        },
+        "connections_office365_name": {
+            "value": null
+        },
+        "components_armLAdemo_name": {
+            "value": null
+        },
+        "serverfarms_ASP_ARMLaDemo_bce2_name": {
+            "value": null
+        },
+        "storageAccounts_storageaccountarmlaa38d_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___armlademo_name": {
+            "value": null
+        },
+        "actiongroups_application_insights_smart_detection_externalid": {
+            "value": null
+        }
+    }
+}
