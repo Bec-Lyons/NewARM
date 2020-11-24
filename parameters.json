@@ -3,31 +3,31 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "connections_sql_name": {
-            "value": null
+            "value": "blSQlConn"
         },
         "sites_armLAdemo_name": {
-            "value": null
+            "value": "blLASite"
         },
         "connections_sql_2_name": {
-            "value": null
+            "value": "blSQL2"
         },
         "connections_office365_name": {
-            "value": null
+            "value": "blOffice"
         },
         "components_armLAdemo_name": {
-            "value": null
+            "value": "blcomponents"
         },
         "serverfarms_ASP_ARMLaDemo_bce2_name": {
-            "value": null
+            "value": "BlASP"
         },
         "storageAccounts_storageaccountarmlaa38d_name": {
-            "value": null
+            "value": "blstorageaccount"
         },
         "smartdetectoralertrules_failure_anomalies___armlademo_name": {
-            "value": null
+            "value": "blsmartdetect"
         },
         "actiongroups_application_insights_smart_detection_externalid": {
-            "value": null
+            "value": "blactiongroup"
         }
     }
 }
