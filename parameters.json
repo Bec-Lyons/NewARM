@@ -3,10 +3,13 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "connections_sql_name": {
-            "value": "blSQlConntest"
+            "value": "sql"
         },
         "sites_armLAdemo_name": {
             "value": "blLASite"
+        },
+        "connections_sql_2_name": {
+            "value": "sql-2"
         },
         "connections_office365_name": {
             "value": "office365"
