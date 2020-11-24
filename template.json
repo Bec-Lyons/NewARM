@@ -31,7 +31,7 @@
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2020-08-01-preview",
+            "apiVersion": "2016-01-01",
             "name": "[parameters('sa_n')]",
             "location": "australiasoutheast",
             "sku": {
@@ -130,7 +130,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices",
-            "apiVersion": "2020-08-01-preview",
+            "apiVersion": "2016-01-01",
             "name": "[concat(parameters('sa_n'), '/default')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
@@ -150,7 +150,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/fileServices",
-            "apiVersion": "2020-08-01-preview",
+            "apiVersion": "2016-01-01",
             "name": "[concat(parameters('sa_n'), '/default')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
@@ -170,7 +170,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/queueServices",
-            "apiVersion": "2020-08-01-preview",
+            "apiVersion": "2019-06-01",
             "name": "[concat(parameters('sa_n'), '/default')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
@@ -183,7 +183,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices",
-            "apiVersion": "2020-08-01-preview",
+            "apiVersion": "2019-06-01",
             "name": "[concat(parameters('sa_n'), '/default')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
@@ -337,7 +337,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "apiVersion": "2020-08-01-preview",
+            "apiVersion": "2018-02-01",
             "name": "[concat(parameters('sa_n'), '/default/azure-webjobs-hosts')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('sa_n'), 'default')]",
@@ -351,7 +351,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "apiVersion": "2020-08-01-preview",
+            "apiVersion": "2019-06-01",
             "name": "[concat(parameters('sa_n'), '/default/azure-webjobs-secrets')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('sa_n'), 'default')]",
@@ -365,7 +365,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
-            "apiVersion": "2020-08-01-preview",
+            "apiVersion": "2019-06-01",
             "name": "[concat(parameters('sa_n'), '/default/armlademoa8a2')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/fileServices', parameters('sa_n'), 'default')]",
@@ -379,7 +379,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/queueServices/queues",
-            "apiVersion": "2020-08-01-preview",
+            "apiVersion": "2019-06-01",
             "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fjobtriggers00')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/queueServices', parameters('sa_n'), 'default')]",
@@ -391,7 +391,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
-            "apiVersion": "2020-08-01-preview",
+            "apiVersion": "2015-01-01",
             "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fada55f2a4e2102dflows')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
@@ -400,7 +400,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
-            "apiVersion": "2020-08-01-preview",
+            "apiVersion": "2015-01-01",
             "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fflowaccesskeys')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
@@ -409,7 +409,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
-            "apiVersion": "2020-08-01-preview",
+            "apiVersion": "2015-01-01",
             "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fflowruntimecontext')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
@@ -418,7 +418,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
-            "apiVersion": "2020-08-01-preview",
+            "apiVersion": "2015-01-01",
             "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fflows')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
@@ -427,7 +427,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
-            "apiVersion": "2020-08-01-preview",
+            "apiVersion": "2015-01-01",
             "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fflowsubscriptions')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
@@ -436,7 +436,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
-            "apiVersion": "2020-08-01-preview",
+            "apiVersion": "2015-01-01",
             "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fflowsubscriptionsummary')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
@@ -445,7 +445,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
-            "apiVersion": "2020-08-01-preview",
+            "apiVersion": "2015-01-01",
             "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fjobdefinitions')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
