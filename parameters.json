@@ -2,8 +2,17 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "connections_sql_name": {
+            "value": "sql"
+        },
         "sites_armLAdemo_name": {
             "value": "blLASite"
+        },
+        "connections_sql_2_name": {
+            "value": "sql-2"
+        },
+        "connections_office365_name": {
+            "value": "office365"
         },
         "serverfarms_ASP_ARMLaDemo_bce2_name": {
             "value": "BlASP"

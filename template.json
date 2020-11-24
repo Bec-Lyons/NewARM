@@ -2,8 +2,20 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "connections_sql_name": {
+            "defaultValue": "sql",
+            "type": "string"
+        },
         "sites_armLAdemo_name": {
             "defaultValue": "armLAdemo",
+            "type": "string"
+        },
+        "connections_sql_2_name": {
+            "defaultValue": "sql-2",
+            "type": "string"
+        },
+        "connections_office365_name": {
+            "defaultValue": "office365",
             "type": "string"
         },
         "serverfarms_ASP_ARMLaDemo_bce2_name": {
@@ -19,7 +31,7 @@
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2016-12-01",
+            "apiVersion": "2016-01-01",
             "name": "[parameters('sa_n')]",
             "location": "australiasoutheast",
             "sku": {
@@ -51,6 +63,48 @@
             }
         },
         {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "name": "[parameters('connections_office365_name')]",
+            "location": "australiasoutheast",
+            "kind": "V2",
+            "properties": {
+                "displayName": "relyons@microsoft.com",
+                "customParameterValues": {},
+                "api": {
+                    "id": "[concat('/subscriptions/80b60a27-4eab-437e-899f-dde369cd1c17/providers/Microsoft.Web/locations/australiasoutheast/managedApis/', parameters('connections_office365_name'))]"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "name": "[parameters('connections_sql_name')]",
+            "location": "australiasoutheast",
+            "kind": "V2",
+            "properties": {
+                "displayName": "LibraryDataStore pactserver.database.windows.net",
+                "customParameterValues": {},
+                "api": {
+                    "id": "[concat('/subscriptions/80b60a27-4eab-437e-899f-dde369cd1c17/providers/Microsoft.Web/locations/australiasoutheast/managedApis/', parameters('connections_sql_name'))]"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "name": "[parameters('connections_sql_2_name')]",
+            "location": "australiasoutheast",
+            "kind": "V2",
+            "properties": {
+                "displayName": "LibraryDataStore pactserver.database.windows.net",
+                "customParameterValues": {},
+                "api": {
+                    "id": "/subscriptions/80b60a27-4eab-437e-899f-dde369cd1c17/providers/Microsoft.Web/locations/australiasoutheast/managedApis/sql"
+                }
+            }
+        },
+        {
             "type": "Microsoft.Web/serverfarms",
             "apiVersion": "2018-02-01",
             "name": "[parameters('serverfarms_ASP_ARMLaDemo_bce2_name')]",
@@ -76,7 +130,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices",
-            "apiVersion": "2018-07-01",
+            "apiVersion": "2016-01-01",
             "name": "[concat(parameters('sa_n'), '/default')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
@@ -96,7 +150,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/fileServices",
-            "apiVersion": "2019-06-01",
+            "apiVersion": "2016-01-01",
             "name": "[concat(parameters('sa_n'), '/default')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
@@ -146,10 +200,15 @@
             "name": "[parameters('sites_armLAdemo_name')]",
             "location": "Australia Southeast",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_ARMLaDemo_bce2_name'))]"
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_ARMLaDemo_bce2_name'))]",
+                "[resourceId('Microsoft.Web/connections', parameters('connections_sql_name'))]", 
+                "[resourceId('Microsoft.Web/connections', parameters('connections_sql_2_name'))]", 
+                "[resourceId('Microsoft.Web/connections', parameters('connections_office365_name'))]" 
             ],
             "kind": "functionapp,workflowapp",
             "identity": {
+                "principalId": "bb669d73-fb61-4809-a65c-d85ecc8ca3dc",
+                "tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47",
                 "type": "SystemAssigned"
             },
             "properties": {
@@ -285,7 +344,10 @@
             "name": "[concat(parameters('sa_n'), '/default/azure-webjobs-hosts')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('sa_n'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"                
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]", 
+                "[resourceId('Microsoft.Web/connections', parameters('connections_sql_name'))]", 
+                "[resourceId('Microsoft.Web/connections', parameters('connections_sql_2_name'))]", 
+                "[resourceId('Microsoft.Web/connections', parameters('connections_office365_name'))]" 
             ],
             "properties": {
                 "defaultEncryptionScope": "$account-encryption-key",
@@ -335,7 +397,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
-            "apiVersion": "2019-06-01",
+            "apiVersion": "2015-01-01",
             "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fada55f2a4e2102dflows')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
@@ -344,7 +406,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
-            "apiVersion": "2019-06-01",
+            "apiVersion": "2015-01-01",
             "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fflowaccesskeys')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
@@ -353,7 +415,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
-            "apiVersion": "2019-06-01",
+            "apiVersion": "2015-01-01",
             "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fflowruntimecontext')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
@@ -362,7 +424,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
-            "apiVersion": "2019-06-01",
+            "apiVersion": "2015-01-01",
             "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fflows')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
@@ -371,7 +433,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
-            "apiVersion": "2019-06-01",
+            "apiVersion": "2015-01-01",
             "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fflowsubscriptions')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
@@ -380,7 +442,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
-            "apiVersion": "2019-06-01",
+            "apiVersion": "2015-01-01",
             "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fflowsubscriptionsummary')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
@@ -389,7 +451,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
-            "apiVersion": "2019-06-01",
+            "apiVersion": "2015-01-01",
             "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fjobdefinitions')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
