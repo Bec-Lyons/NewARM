@@ -19,7 +19,7 @@
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2016-01-01",
+            "apiVersion": "2016-12-01",
             "name": "[parameters('sa_n')]",
             "location": "australiasoutheast",
             "sku": {
