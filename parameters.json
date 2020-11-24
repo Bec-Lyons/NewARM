@@ -12,7 +12,7 @@
             "value": "blSQL2test"
         },
         "connections_office365_name": {
-            "value": "blOfficetest"
+            "value": "office365"
         },
         "serverfarms_ASP_ARMLaDemo_bce2_name": {
             "value": "BlASP"

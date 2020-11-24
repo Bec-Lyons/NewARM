@@ -72,7 +72,7 @@
                 "displayName": "relyons@microsoft.com",
                 "customParameterValues": {},
                 "api": {
-                    "id": "[concat('/subscriptions/80b60a27-4eab-437e-899f-dde369cd1c17/providers/Microsoft.Web/locations/australiasoutheast/managedApis/office365', parameters('connections_office365_name'))]"
+                    "id": "[concat('/subscriptions/80b60a27-4eab-437e-899f-dde369cd1c17/providers/Microsoft.Web/locations/australiasoutheast/managedApis/', parameters('connections_office365_name'))]"
                 }
             }
         },
@@ -86,7 +86,7 @@
                 "displayName": "LibraryDataStore pactserver.database.windows.net",
                 "customParameterValues": {},
                 "api": {
-                    "id": "[concat('/subscriptions/80b60a27-4eab-437e-899f-dde369cd1c17/providers/Microsoft.Web/locations/australiasoutheast/managedApis/sql', parameters('connections_sql_name'))]"
+                    "id": "[concat('/subscriptions/80b60a27-4eab-437e-899f-dde369cd1c17/providers/Microsoft.Web/locations/australiasoutheast/managedApis/', parameters('connections_sql_name'))]"
                 }
             }
         },
