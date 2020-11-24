@@ -8,9 +8,6 @@
         "sites_armLAdemo_name": {
             "value": "blLASite"
         },
-        "connections_sql_2_name": {
-            "value": "blSQL2test"
-        },
         "connections_office365_name": {
             "value": "office365"
         },
