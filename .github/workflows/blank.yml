@@ -11,7 +11,7 @@ env:
   AZURE_SUBSCRIPTION_ID: ${{ secrets.subscriptionid }}   # set this to your Azure Subscription Id
   
 jobs:
-  build-and-deploy-to-dev:
+  build-and-deploy-to-dev: 
     runs-on: ubuntu-latest
     steps:
                       
