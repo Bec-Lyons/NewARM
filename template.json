@@ -4,62 +4,43 @@
     "parameters": {
         "connections_sql_name": {
             "defaultValue": "sql",
-            "type": "String"
+            "type": "string"
         },
         "sites_armLAdemo_name": {
             "defaultValue": "armLAdemo",
-            "type": "String"
+            "type": "string"
         },
         "connections_sql_2_name": {
             "defaultValue": "sql-2",
-            "type": "String"
+            "type": "string"
         },
         "connections_office365_name": {
             "defaultValue": "office365",
-            "type": "String"
-        },
-        "components_armLAdemo_name": {
-            "defaultValue": "armLAdemo",
-            "type": "String"
+            "type": "string"
         },
         "serverfarms_ASP_ARMLaDemo_bce2_name": {
             "defaultValue": "ASP-ARMLaDemo-bce2",
-            "type": "String"
+            "type": "string"
         },
-        "storageAccounts_storageaccountarmlaa38d_name": {
+        "sa_n": {
             "defaultValue": "storageaccountarmlaa38d",
-            "type": "String"
+            "type": "string"
         },
         "smartdetectoralertrules_failure_anomalies___armlademo_name": {
             "defaultValue": "failure anomalies - armlademo",
-            "type": "String"
+            "type": "string"
         },
         "actiongroups_application_insights_smart_detection_externalid": {
             "defaultValue": "/subscriptions/80b60a27-4eab-437e-899f-dde369cd1c17/resourceGroups/apimanagement/providers/microsoft.insights/actiongroups/application insights smart detection",
-            "type": "String"
+            "type": "string"
         }
     },
     "variables": {},
     "resources": [
         {
-            "type": "microsoft.insights/components",
-            "apiVersion": "2018-05-01-preview",
-            "name": "[parameters('components_armLAdemo_name')]",
-            "location": "australiasoutheast",
-            "kind": "web",
-            "properties": {
-                "Application_Type": "web",
-                "Flow_Type": "Redfield",
-                "Request_Source": "IbizaWebAppExtensionCreate",
-                "RetentionInDays": 90,
-                "publicNetworkAccessForIngestion": "Enabled",
-                "publicNetworkAccessForQuery": "Enabled"
-            }
-        },
-        {
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2020-08-01-preview",
-            "name": "[parameters('storageAccounts_storageaccountarmlaa38d_name')]",
+            "name": "[parameters('sa_n')]",
             "location": "australiasoutheast",
             "sku": {
                 "name": "Standard_LRS",
@@ -156,42 +137,11 @@
             }
         },
         {
-            "type": "microsoft.alertsmanagement/smartdetectoralertrules",
-            "apiVersion": "2019-06-01",
-            "name": "[parameters('smartdetectoralertrules_failure_anomalies___armlademo_name')]",
-            "location": "global",
-            "dependsOn": [
-                "[resourceId('microsoft.insights/components', parameters('components_armLAdemo_name'))]"
-            ],
-            "properties": {
-                "description": "Failure Anomalies notifies you of an unusual rise in the rate of failed HTTP requests or dependency calls.",
-                "state": "Enabled",
-                "severity": "Sev3",
-                "frequency": "PT1M",
-                "detector": {
-                    "id": "FailureAnomaliesDetector",
-                    "name": "Failure Anomalies",
-                    "description": "Detects if your application experiences an abnormal rise in the rate of HTTP requests or dependency calls that are reported as failed. The anomaly detection uses machine learning algorithms and occurs in near real time, therefore there's no need to define a frequency for this signal.<br/></br/>To help you triage and diagnose the problem, an analysis of the characteristics of the failures and related telemetry is provided with the detection. This feature works for any app, hosted in the cloud or on your own servers, that generates request or dependency telemetry - for example, if you have a worker role that calls <a class=\"ext-smartDetecor-link\" href=\\\"https://docs.microsoft.com/azure/application-insights/app-insights-api-custom-events-metrics#trackrequest\\\" target=\\\"_blank\\\">TrackRequest()</a> or <a class=\"ext-smartDetecor-link\" href=\\\"https://docs.microsoft.com/azure/application-insights/app-insights-api-custom-events-metrics#trackdependency\\\" target=\\\"_blank\\\">TrackDependency()</a>.<br/><br/><a class=\"ext-smartDetecor-link\" href=\\\"https://docs.microsoft.com/azure/azure-monitor/app/proactive-failure-diagnostics\\\" target=\\\"_blank\\\">Learn more about Failure Anomalies</a>",
-                    "supportedResourceTypes": [
-                        "ApplicationInsights"
-                    ]
-                },
-                "scope": [
-                    "[resourceId('microsoft.insights/components', parameters('components_armLAdemo_name'))]"
-                ],
-                "actionGroups": {
-                    "groupIds": [
-                        "[parameters('actiongroups_application_insights_smart_detection_externalid')]"
-                    ]
-                }
-            }
-        },
-        {
             "type": "Microsoft.Storage/storageAccounts/blobServices",
             "apiVersion": "2020-08-01-preview",
-            "name": "[concat(parameters('storageAccounts_storageaccountarmlaa38d_name'), '/default')]",
+            "name": "[concat(parameters('sa_n'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountarmlaa38d_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
             ],
             "sku": {
                 "name": "Standard_LRS",
@@ -209,9 +159,9 @@
         {
             "type": "Microsoft.Storage/storageAccounts/fileServices",
             "apiVersion": "2020-08-01-preview",
-            "name": "[concat(parameters('storageAccounts_storageaccountarmlaa38d_name'), '/default')]",
+            "name": "[concat(parameters('sa_n'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountarmlaa38d_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
             ],
             "sku": {
                 "name": "Standard_LRS",
@@ -229,9 +179,9 @@
         {
             "type": "Microsoft.Storage/storageAccounts/queueServices",
             "apiVersion": "2020-08-01-preview",
-            "name": "[concat(parameters('storageAccounts_storageaccountarmlaa38d_name'), '/default')]",
+            "name": "[concat(parameters('sa_n'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountarmlaa38d_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
             ],
             "properties": {
                 "cors": {
@@ -242,9 +192,9 @@
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices",
             "apiVersion": "2020-08-01-preview",
-            "name": "[concat(parameters('storageAccounts_storageaccountarmlaa38d_name'), '/default')]",
+            "name": "[concat(parameters('sa_n'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountarmlaa38d_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
             ],
             "properties": {
                 "cors": {
@@ -396,10 +346,10 @@
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
             "apiVersion": "2020-08-01-preview",
-            "name": "[concat(parameters('storageAccounts_storageaccountarmlaa38d_name'), '/default/azure-webjobs-hosts')]",
+            "name": "[concat(parameters('sa_n'), '/default/azure-webjobs-hosts')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_storageaccountarmlaa38d_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountarmlaa38d_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('sa_n'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
             ],
             "properties": {
                 "defaultEncryptionScope": "$account-encryption-key",
@@ -410,10 +360,10 @@
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
             "apiVersion": "2020-08-01-preview",
-            "name": "[concat(parameters('storageAccounts_storageaccountarmlaa38d_name'), '/default/azure-webjobs-secrets')]",
+            "name": "[concat(parameters('sa_n'), '/default/azure-webjobs-secrets')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_storageaccountarmlaa38d_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountarmlaa38d_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('sa_n'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
             ],
             "properties": {
                 "defaultEncryptionScope": "$account-encryption-key",
@@ -424,10 +374,10 @@
         {
             "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
             "apiVersion": "2020-08-01-preview",
-            "name": "[concat(parameters('storageAccounts_storageaccountarmlaa38d_name'), '/default/armlademoa8a2')]",
+            "name": "[concat(parameters('sa_n'), '/default/armlademoa8a2')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/fileServices', parameters('storageAccounts_storageaccountarmlaa38d_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountarmlaa38d_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts/fileServices', parameters('sa_n'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
             ],
             "properties": {
                 "accessTier": "TransactionOptimized",
@@ -438,10 +388,10 @@
         {
             "type": "Microsoft.Storage/storageAccounts/queueServices/queues",
             "apiVersion": "2020-08-01-preview",
-            "name": "[concat(parameters('storageAccounts_storageaccountarmlaa38d_name'), '/default/flowe8dc565c5f3e43fjobtriggers00')]",
+            "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fjobtriggers00')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/queueServices', parameters('storageAccounts_storageaccountarmlaa38d_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountarmlaa38d_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts/queueServices', parameters('sa_n'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
             ],
             "properties": {
                 "metadata": {}
@@ -450,64 +400,64 @@
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
             "apiVersion": "2020-08-01-preview",
-            "name": "[concat(parameters('storageAccounts_storageaccountarmlaa38d_name'), '/default/flowe8dc565c5f3e43fada55f2a4e2102dflows')]",
+            "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fada55f2a4e2102dflows')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('storageAccounts_storageaccountarmlaa38d_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountarmlaa38d_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
             ]
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
             "apiVersion": "2020-08-01-preview",
-            "name": "[concat(parameters('storageAccounts_storageaccountarmlaa38d_name'), '/default/flowe8dc565c5f3e43fflowaccesskeys')]",
+            "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fflowaccesskeys')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('storageAccounts_storageaccountarmlaa38d_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountarmlaa38d_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
             ]
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
             "apiVersion": "2020-08-01-preview",
-            "name": "[concat(parameters('storageAccounts_storageaccountarmlaa38d_name'), '/default/flowe8dc565c5f3e43fflowruntimecontext')]",
+            "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fflowruntimecontext')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('storageAccounts_storageaccountarmlaa38d_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountarmlaa38d_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
             ]
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
             "apiVersion": "2020-08-01-preview",
-            "name": "[concat(parameters('storageAccounts_storageaccountarmlaa38d_name'), '/default/flowe8dc565c5f3e43fflows')]",
+            "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fflows')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('storageAccounts_storageaccountarmlaa38d_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountarmlaa38d_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
             ]
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
             "apiVersion": "2020-08-01-preview",
-            "name": "[concat(parameters('storageAccounts_storageaccountarmlaa38d_name'), '/default/flowe8dc565c5f3e43fflowsubscriptions')]",
+            "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fflowsubscriptions')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('storageAccounts_storageaccountarmlaa38d_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountarmlaa38d_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
             ]
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
             "apiVersion": "2020-08-01-preview",
-            "name": "[concat(parameters('storageAccounts_storageaccountarmlaa38d_name'), '/default/flowe8dc565c5f3e43fflowsubscriptionsummary')]",
+            "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fflowsubscriptionsummary')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('storageAccounts_storageaccountarmlaa38d_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountarmlaa38d_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
             ]
         },
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices/tables",
             "apiVersion": "2020-08-01-preview",
-            "name": "[concat(parameters('storageAccounts_storageaccountarmlaa38d_name'), '/default/flowe8dc565c5f3e43fjobdefinitions')]",
+            "name": "[concat(parameters('sa_n'), '/default/flowe8dc565c5f3e43fjobdefinitions')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('storageAccounts_storageaccountarmlaa38d_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountarmlaa38d_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts/tableServices', parameters('sa_n'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
             ]
         }
     ]
