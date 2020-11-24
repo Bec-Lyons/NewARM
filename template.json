@@ -202,6 +202,7 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_ARMLaDemo_bce2_name'))]",
                 "[resourceId('Microsoft.Web/connections', parameters('connections_sql_name'))]", 
+                "[resourceId('Microsoft.Web/connections', parameters('connections_sql_2_name'))]", 
                 "[resourceId('Microsoft.Web/connections', parameters('connections_office365_name'))]" 
             ],
             "kind": "functionapp,workflowapp",
@@ -343,7 +344,10 @@
             "name": "[concat(parameters('sa_n'), '/default/azure-webjobs-hosts')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('sa_n'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('sa_n'))]", 
+                "[resourceId('Microsoft.Web/connections', parameters('connections_sql_name'))]", 
+                "[resourceId('Microsoft.Web/connections', parameters('connections_sql_2_name'))]", 
+                "[resourceId('Microsoft.Web/connections', parameters('connections_office365_name'))]" 
             ],
             "properties": {
                 "defaultEncryptionScope": "$account-encryption-key",
