@@ -200,7 +200,9 @@
             "name": "[parameters('sites_armLAdemo_name')]",
             "location": "Australia Southeast",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_ARMLaDemo_bce2_name'))]"
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_ARMLaDemo_bce2_name'))]",
+                "[resourceId('Microsoft.Web/connections', parameters('connections_sql_name'))]", 
+                "[resourceId('Microsoft.Web/connections', parameters('connections_office365_name'))]" 
             ],
             "kind": "functionapp,workflowapp",
             "identity": {
